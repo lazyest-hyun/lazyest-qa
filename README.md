@@ -36,6 +36,8 @@ Start a new task and select **Lazyest-qa** from the skills picker, or ask:
 Use the Lazyest-qa skill to test this change and its affected flows with the existing project tools. Report defects and untested risks.
 ```
 
+Codex registers the plugin skill as `lazyest-qa:lazyest-qa`. The shorter `lazyest-qa` name belongs to a standalone installation.
+
 ### Codex: standalone skill alternative
 
 If your client does not support plugin commands, ask Codex:
@@ -90,7 +92,14 @@ For Claude Code:
 /plugin update lazyest-qa@lazyest-qa
 ```
 
-For Codex, refresh this marketplace and update/reinstall the plugin through the plugin manager supported by your client. Release versions are kept in both plugin manifests; maintainers bump both on every release. Standalone copies must be updated separately.
+For a Codex CLI with plugin support:
+
+```sh
+codex plugin marketplace upgrade lazyest-qa
+codex plugin add lazyest-qa@lazyest-qa
+```
+
+Release versions are kept in both plugin manifests; maintainers bump both when the plugin payload changes. Standalone copies must be updated separately.
 
 ## Repository layout
 

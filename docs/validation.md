@@ -30,6 +30,15 @@ Package checks performed on 2026-09-07:
 | Claude Code 2.1.227 marketplace validation | Passed |
 | Claude Code 2.1.227 plugin validation | Passed |
 | Shared skill compared with the validated standalone distribution | All 18 files identical |
+| GitHub Actions package validation on the public repository | Passed |
+| Codex CLI 0.144.5: add GitHub marketplace, install plugin, list enabled plugin | Passed, version 1.0.0 |
+| Codex app-server: reload and list skills | Discovered enabled plugin skill `lazyest-qa:lazyest-qa` from the plugin cache |
+| Claude Code 2.1.227: add GitHub marketplace, install, inspect details | Passed, version 1.0.0; component inventory found one skill named `lazyest-qa` |
+| Codex standalone GitHub skill installer with an isolated destination | Passed; all 18 installed files identical to the source |
+| Native plugin cache contents in Codex and Claude Code | Shared skill files identical to the source |
+| GitHub source archive fetched without authentication | Downloaded successfully; every plugin payload file matched the local source |
+
+Native installations above used `lazyest-hyun/lazyest-qa` on GitHub, not a local directory. They verified fetching, installation, enabled state, and skill discovery. They did not start a paid model session or rerun the behavioral exercises in both hosts. The Codex app UI was not part of this CLI validation.
 
 The package uses one shared skill directory; native tool support and the user's available execution tools determine which tests can actually run.
 

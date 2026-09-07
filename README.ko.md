@@ -30,6 +30,8 @@ codex plugin marketplace add lazyest-hyun/lazyest-qa
 codex plugin add lazyest-qa@lazyest-qa
 ```
 
+Codex에서 플러그인 스킬은 `lazyest-qa:lazyest-qa`로 등록됩니다. 단독 설치의 이름은 `lazyest-qa`입니다.
+
 새 작업에서 스킬 선택 메뉴의 **Lazyest-qa**를 선택하거나 다음처럼 요청합니다.
 
 ```text
