@@ -1,0 +1,16 @@
+{
+  "name": "lazyest-qa",
+  "owner": {
+    "name": "Lazyest"
+  },
+  "metadata": {
+    "description": "Risk-based QA skills for software teams."
+  },
+  "plugins": [
+    {
+      "name": "lazyest-qa",
+      "source": "./plugins/lazyest-qa",
+      "description": "Risk-based software QA: test design, execution, automation, regression, and evidence-based release assessment."
+    }
+  ]
+}

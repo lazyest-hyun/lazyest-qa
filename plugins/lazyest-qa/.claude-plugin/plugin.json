@@ -1,0 +1,20 @@
+{
+  "name": "lazyest-qa",
+  "version": "1.0.0",
+  "description": "Risk-based software QA: test design, execution, automation, regression, and evidence-based release assessment.",
+  "author": {
+    "name": "Lazyest",
+    "url": "https://github.com/lazyest-hyun"
+  },
+  "homepage": "https://github.com/lazyest-hyun/lazyest-qa",
+  "repository": "https://github.com/lazyest-hyun/lazyest-qa",
+  "license": "MIT",
+  "keywords": [
+    "qa",
+    "testing",
+    "istqb",
+    "test-design",
+    "regression",
+    "quality-assurance"
+  ]
+}

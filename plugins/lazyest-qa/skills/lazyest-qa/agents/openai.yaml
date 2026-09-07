@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lazyest-qa"
+  short_description: "Risk-based test design, execution, and QA evidence"
+  default_prompt: "Use $lazyest-qa to assess this product or change, select suitable tests, execute the authorized checks, and report evidence and remaining risks."
