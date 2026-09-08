@@ -1,0 +1,294 @@
+{
+  "scope": "Three-task single-project adapted BugsInPy screening, one run per condition. Observed defect family is distinct from a correct regression oracle.",
+  "condition_audit": "9 completed arms / 95 commands; no prohibited access observed in exposed traces; input content unchanged. Not an OS-enforced read boundary.",
+  "rows": [
+    {
+      "task": "task-a",
+      "case_id": "tornado-4",
+      "arm": "no-skill",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 1,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 1,
+      "incorrect_expected_outcomes": 3,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "4cac3f8aa3e74aecdb0661ea1a2d424edd7df75d17c9d32858c506452682f3d6",
+      "test_file_sha256": "86558147bcc430411a00fdc53eb051870ada5b680d1e88e8c0b8c72a2bea897d",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 4,
+          "failures": 2,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 1,
+          "tests_run": 4,
+          "failures": 1,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": 76.509,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-a",
+      "case_id": "tornado-4",
+      "arm": "short-prompt",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 1,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 0,
+      "incorrect_expected_outcomes": 2,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 1,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "17b0e2fad75db5b520a0d19a3f5c650238354950efdc484e85f6f870dc28ffb3",
+      "test_file_sha256": "274cd1f4d7e68ace92383bbcd77e084168b30f1183c4db29984de98575a1f655",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 5,
+          "failures": 2,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 0,
+          "tests_run": 5,
+          "failures": 0,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": 79.227,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-a",
+      "case_id": "tornado-4",
+      "arm": "revised-skill",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 1,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 1,
+      "incorrect_expected_outcomes": 3,
+      "incorrect_observation_claims": 1,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 2,
+      "prompt_sha256": "1523d3dfdea8de63dd42d97d3cda18714d731662cf1a52279d04407d3cb369c5",
+      "test_file_sha256": "341139b45fa9abc8d639160f60062c81c5e05eae8064dad270713b5c9d5ae846",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 4,
+          "failures": 2,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 1,
+          "tests_run": 4,
+          "failures": 1,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": 92.337,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-b",
+      "case_id": "tornado-6",
+      "arm": "no-skill",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 0,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 1,
+      "incorrect_expected_outcomes": 2,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "0166dced6dd9deac83e75b35a919d9c768c6a4c67b9d801ff2e7d2ae42066d2a",
+      "test_file_sha256": "92486e7aef89cedfe74c832a6a490b9165f37a81b8b6b8fd30dfbca1790c116a",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 3,
+          "failures": 1,
+          "errors": 1
+        },
+        "fixed": {
+          "exit_code": 1,
+          "tests_run": 3,
+          "failures": 1,
+          "errors": 1
+        }
+      },
+      "first_confirmed_product_symptom_seconds": null,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-b",
+      "case_id": "tornado-6",
+      "arm": "short-prompt",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 0,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 1,
+      "incorrect_expected_outcomes": 1,
+      "incorrect_observation_claims": 1,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "b7a2f5d5fd6e713be909cc59c4ce1fbccedb195b94faa3dd4101696b79d393cf",
+      "test_file_sha256": "db3978e91edf7e6790e68ff5a5b093b0339c20cf005b4cc3f74fc1ed675db042",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 3,
+          "failures": 1,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 1,
+          "tests_run": 3,
+          "failures": 1,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": null,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-b",
+      "case_id": "tornado-6",
+      "arm": "revised-skill",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 0,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 1,
+      "incorrect_expected_outcomes": 1,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "936daa341815117e898a6f9ede8c93accaa1cf0dac2e5ebfedfcd56f0a649ee8",
+      "test_file_sha256": "ae2ba793cc4b5942ad2c0eb7bfc9bca86f0299c395ce7e6543b992f52a6691ae",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 2,
+          "failures": 1,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 1,
+          "tests_run": 2,
+          "failures": 1,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": null,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-c",
+      "case_id": "tornado-13",
+      "arm": "no-skill",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 0,
+      "additional_unique_defects_credited": 1,
+      "false_positive_product_findings": 0,
+      "incorrect_expected_outcomes": 0,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "4acb5cace532b028097053a89546077b7cd905e0ec26dad9976b29e64012792a",
+      "test_file_sha256": "da8f81ee1a8bf79da627f1d77638a81d245e0c6cf383e408a36acaa788962992",
+      "replays": {
+        "buggy": {
+          "exit_code": 1,
+          "tests_run": 5,
+          "failures": 1,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 1,
+          "tests_run": 5,
+          "failures": 1,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": 92.554,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-c",
+      "case_id": "tornado-13",
+      "arm": "short-prompt",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 0,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 0,
+      "incorrect_expected_outcomes": 0,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 0,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "89b32b8cb4c9ce7909e39d674aa0c6249b4ee70480eda324f0cc9158e0037afc",
+      "test_file_sha256": "a002f85a1da7e32cddd2a56ab35f464f5450f2ead2c8331752839fc6b0753922",
+      "replays": {
+        "buggy": {
+          "exit_code": 0,
+          "tests_run": 4,
+          "failures": 0,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 0,
+          "tests_run": 4,
+          "failures": 0,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": null,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    },
+    {
+      "task": "task-c",
+      "case_id": "tornado-13",
+      "arm": "revised-skill",
+      "condition_valid": true,
+      "known_bug_families_confirmed": 0,
+      "additional_unique_defects_credited": 0,
+      "false_positive_product_findings": 0,
+      "incorrect_expected_outcomes": 0,
+      "incorrect_observation_claims": 0,
+      "invalid_test_basis_claims": 1,
+      "report_count_errors": 0,
+      "report_coverage_errors": 0,
+      "prompt_sha256": "40ec3a7cf532c3b5393749eaae86ff8e21def7b9eab7bd9c11b9c33579557df8",
+      "test_file_sha256": "c2c86e313242a7e167ac09d1ce3f251cefa26c8373a87686e37198cb2cd040d5",
+      "replays": {
+        "buggy": {
+          "exit_code": 0,
+          "tests_run": 4,
+          "failures": 0,
+          "errors": 0
+        },
+        "fixed": {
+          "exit_code": 0,
+          "tests_run": 4,
+          "failures": 0,
+          "errors": 0
+        }
+      },
+      "first_confirmed_product_symptom_seconds": null,
+      "first_symptom_is_not_necessarily_final_test_version": true
+    }
+  ]
+}

@@ -2,6 +2,20 @@
 
 These notes distinguish package installation from the behavior of an agent using the skill. Neither proves that every product, platform, or defect type has been tested.
 
+## 1.1.0 validation
+
+The entrypoint now starts with product artifacts and uses reference sections only for unresolved questions. It was reduced from 1,177 to 718 whitespace-delimited words; this is a document-size measure, not a measured model-token saving. The optional native-command helper preserves complete attempt logs and returns a bounded output tail without interpreting test success. Planning templates now start at NOT RUN.
+
+The previous small and integrated synthetic comparisons did not demonstrate a detection advantage over ordinary model QA. In the Luna integrated comparison, the old skill used more average time and tokens; removing an ambiguously scoped concurrency item made detection equal. These observations motivated the redesign and do not establish the new version's performance.
+
+New validation uses a frozen skill and real historical Tornado defects selected from BugsInPy, with full source snapshots and independent buggy/fixed controls. The comparison includes no skill, a fixed short QA prompt, and the revised skill. This is a small adapted subset with one project, not the full official BugsInPy benchmark, and public-code training exposure cannot be ruled out. Reproducible setup is kept separately from the installed skill payload.
+
+The completed Luna screening did not show a quality advantage: all three conditions observed one of three selected defect families; no-skill additionally found one real decoding defect. False product findings were 2 / 1 / 2 for no-skill / short-prompt / revised-skill. Revised skill took 2.68% more total time and 3.49% fewer input+output tokens than no-skill, but 19.98% more time and 17.10% more tokens than the short prompt. These are one-run-per-task observations, not statistical proof. Exact measurements, independent oracle adjudication, condition contamination and excluded costs are in the [public-project screening report](evaluation-2026-09-08.md).
+
+On macOS ARM / CPython 3.9.6, nine helper behavior tests cover literal arguments, real exit codes, bounded output with full log retention, preserving initial failures, setup errors, timeouts and process-group cleanup. Ten package tests exercise valid and malformed YAML, required field types, and missing links. Windows process-tree cleanup remains best effort and has not been executed on Windows.
+
+All 19 package/helper tests and both native manifest validators passed for 1.1.0. The shared, standalone and ZIP skill payloads match the 19 frozen files. The public environment builder was independently replayed, with nine expected native unittest outcomes and source-integrity checks passing. During model comparison no revised run invoked the optional helper, so the study does not establish its efficiency benefit.
+
 ## Behavioral exercises
 
 During development, separate evaluation agents received the skill, a task, and source materials without being told the seeded defects or expected conclusions. The exercises ran in isolated local fixtures, not against production services.
@@ -19,13 +33,13 @@ The first three exercises informed refinements to avoid unnecessary reporting ha
 
 ## Package checks
 
-Run `python3 scripts/validate.py` from the repository root. It checks matching plugin metadata, both catalog source paths, the shared skill entrypoint and resources, and local Markdown links. It requires only the Python standard library and does not execute product tests or validate third-party web pages.
+From the repository root, install the development-only dependencies with `python3 -m pip install -r requirements-dev.txt`, then run `python3 scripts/validate.py` and `python3 -m unittest discover -s tests -v`. The checker parses the skill/UI YAML, checks matching plugin metadata, both catalog source paths and local Markdown links. These dependencies are not required to install or use the skill. Package checks do not execute product tests or validate third-party web pages.
 
 Package checks performed on 2026-09-07:
 
 | Check | Result |
 | --- | --- |
-| Standard-library repository validator, Python 3.9 | Passed |
+| Original standard-library repository validator, Python 3.9 | Passed at the time; later negative controls exposed incomplete YAML validation, corrected in 1.1.0 |
 | Codex bundled skill and plugin validators | Passed |
 | Claude Code 2.1.227 marketplace validation | Passed |
 | Claude Code 2.1.227 plugin validation | Passed |

@@ -1,0 +1,62 @@
+{
+  "format_version": 1,
+  "name": "Tornado historical QA subset",
+  "upstream": "https://github.com/tornadoweb/tornado",
+  "upstream_license": "Apache-2.0",
+  "dataset": "https://github.com/soarsmu/BugsInPy",
+  "dataset_commit": "11c5f1eea954a42132cfd06bf257766a7963e0fd",
+  "validated_runtime": "CPython 3.9.6 on macOS ARM64",
+  "cases": [
+    {
+      "id": "tornado-4",
+      "title": "Static content delivery",
+      "task_template": "tasks/tornado-4.md",
+      "dataset_reference": "https://github.com/soarsmu/BugsInPy/tree/11c5f1eea954a42132cfd06bf257766a7963e0fd/projects/tornado/bugs/4",
+      "buggy_commit": "a8420fc681c5423d072978f00eab4d0645057d16",
+      "fixed_commit": "db529031a1e1a6e951826aba0b7d0b18f05cd4c7",
+      "existing_test_module": "tornado.test.web_test",
+      "existing_tests": 182,
+      "existing_skipped": 1,
+      "gold_test_file": "tornado/test/web_test.py",
+      "gold_tests": [
+        "tornado.test.web_test.StaticFileTest.test_static_with_range_neg_past_start",
+        "tornado.test.web_test.StaticFileTest.test_static_unsatisfiable_range_end_less_than_start"
+      ],
+      "buggy_expected": {"tests": 2, "failures": 2, "errors": 0, "skipped": 0},
+      "buggy_failure_markers": ["AssertionError"]
+    },
+    {
+      "id": "tornado-6",
+      "title": "Event loop lifecycle",
+      "task_template": "tasks/tornado-6.md",
+      "dataset_reference": "https://github.com/soarsmu/BugsInPy/tree/11c5f1eea954a42132cfd06bf257766a7963e0fd/projects/tornado/bugs/6",
+      "buggy_commit": "fb74e4816ccfa7fc6a7abd8c8aab1f415cfc1b13",
+      "fixed_commit": "2905ee4fb3c283d40b10f609359e189c83a0dc06",
+      "existing_test_module": "tornado.test.asyncio_test",
+      "existing_tests": 6,
+      "existing_skipped": 0,
+      "gold_test_file": "tornado/test/asyncio_test.py",
+      "gold_tests": [
+        "tornado.test.asyncio_test.LeakTest.test_ioloop_close_leak",
+        "tornado.test.asyncio_test.LeakTest.test_asyncio_close_leak"
+      ],
+      "buggy_expected": {"tests": 2, "failures": 2, "errors": 0, "skipped": 0},
+      "buggy_failure_markers": ["AssertionError"]
+    },
+    {
+      "id": "tornado-13",
+      "title": "HTTP client interoperability",
+      "task_template": "tasks/tornado-13.md",
+      "dataset_reference": "https://github.com/soarsmu/BugsInPy/tree/11c5f1eea954a42132cfd06bf257766a7963e0fd/projects/tornado/bugs/13",
+      "buggy_commit": "d7d9c467cda38f4c9352172ba7411edc29a85196",
+      "fixed_commit": "34903f9e1a99441b2729bbe6f1d65d46cf352ea7",
+      "existing_test_module": "tornado.test.httpclient_test",
+      "existing_tests": 47,
+      "existing_skipped": 0,
+      "gold_test_file": "tornado/test/http1connection_test.py",
+      "gold_tests": ["tornado.test.http1connection_test.HTTP1ConnectionTest.test_http10_no_content_length"],
+      "buggy_expected": {"tests": 1, "failures": 0, "errors": 1, "skipped": 0},
+      "buggy_failure_markers": ["AttributeError", "ResponseStartLine", "method"]
+    }
+  ]
+}

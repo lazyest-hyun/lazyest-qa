@@ -1,73 +1,53 @@
 ---
 name: lazyest-qa
-description: Plan, design, execute, and assess software QA and testing using ISTQB-informed, risk-based methods. Use for test cases, exploratory QA, regression, test automation, defect verification, or release readiness across software products. Also handles requirements and test-process reviews. Not for certification exam tutoring or a standalone security audit.
+description: Design and execute software tests, reproduce defects, verify fixes, and assess QA or release evidence. Use for exploratory QA, regression, test automation, and requirements reviews across software products. Adapt to existing project tools and approved behavior.
 ---
 
 # Lazyest-qa
 
-Turn the requested quality question into appropriate tests, observable evidence, and an honest decision. Adapt to the product, lifecycle, risk, available tools, and requested depth. This is an independent practical skill, not an official ISTQB product, accreditation, or guarantee that all defects can be found.
+Use the supplied product, change, requirements and existing tests first. Apply the core below directly. Open a reference only to answer a specific question those artifacts leave unresolved; the reference list is not a reading checklist.
 
-## Start with the actual assignment
+## Core
 
-Read the supplied requirements, change, application, and relevant local instructions before selecting tests. Use the user's language for discussion and deliverables; retain the project's naming and test conventions. Paths below are relative to this skill directory. There is no required language, framework, browser, service, account, OS, or paid tool.
+1. **Choose the result.** Plan/review requests produce cases or findings without executing or changing the product. Execution requests produce runnable checks and observed results. Fix verification needs the original trigger and affected regression. Release review needs evidence for the actual candidate. Preserve the user's scope and existing authorization.
+2. **Find the shortest useful path.** Inspect the relevant contract, changed behavior, callers and existing test setup. Reuse the project's runner, fixtures and public interfaces. Read targeted files or sections; expand when dependencies or failures justify it. Execute a small relevant check before writing a large suite.
+3. **Make risks executable.** For each material risk, identify the required outcome, setup/sequence, observation and a control that distinguishes correct behavior. Select probes that add distinct evidence; avoid repeating checks already sufficient for the same risk. Use the following prompts where the product exposes that mechanism:
 
-Choose the mode from intent; combine only where the assignment needs it:
+| Mechanism | Discriminating probe |
+| --- | --- |
+| Limits or interacting rules | Adjacent valid/invalid values; isolate invalid inputs, then exercise relevant rule interactions |
+| Stateful behavior | Establish state, perform another operation or change context, then reuse the resource; check effects as well as the response |
+| Concurrent or asynchronous work | Identify conflicting transitions and an invariant; control their ordering with a local test barrier or clock when authorized; observe durable state after completion |
+| Persistence, upgrade or encoding | Use nonempty historical data and meaningful round trips; compare identity, order, content and relationships |
+| Multiple components or clients | Follow the contract across the actual boundary; retain the distinction between component simulation and observed integration |
 
-| Request | Work to perform | Completion evidence |
-| --- | --- | --- |
-| Review requirements or QA process | Inspect testability, contradictions, prevention and feedback gaps | Source-linked findings, acceptance examples or process proposals |
-| Plan / design / cases only | Derive risks, coverage items, concrete cases and execution order | Reviewable plan/cases; execution explicitly not performed |
-| Test / QA / check this works | Discover the environment, design and perform authorized checks, investigate failures | Actual results and artifacts; blockers for unavailable checks |
-| Add or improve automated tests | Identify missing behavioral coverage, implement in the existing stack and run | Executed tests with meaningful assertions and maintenance guidance |
-| Verify a fix / regression | Reproduce the original trigger, test the change and affected neighbors | Confirmation result plus separately scoped regression results |
-| Assess a release | Evaluate candidate-specific evidence against agreed exit criteria | Supported recommendation, open defects and residual risks |
+4. **Execute and diagnose.** Tests must assert agreed behavior, not reproduce the implementation's formula. Keep raw failures and each rerun. Separate product failure from collection, setup, timeout or assertion errors. If a corrected version is available, run the same test unchanged on both versions. Functional sequence tests do not require a numeric performance SLO; permission for local synchronization does not authorize disrupting shared services.
+5. **Close coverage, then report.** Revisit the material risks: which have observed evidence, which remain untested, and which lack an agreed oracle? A release blocker does not settle other important risks. Report findings with reproduction, expected/actual behavior and evidence, followed by consequential gaps. Keep shared metadata once and avoid repeating logs in prose. Never label unexecuted or uncertain work passed.
 
-If asked to execute, do not stop at a plan when execution is available. If asked only to inspect or plan, do not change the product, test suite, environment, or external records. Testing permission does not silently authorize product fixes, publication, deployment, or sending messages. Honor existing authorization without repeatedly asking.
+Use the user's language and project conventions. Testing alone does not authorize product fixes, deployment, publication or messages. Use owned synthetic/approved data and clean up only owned resources.
 
-## Working loop
+## Optional execution support
 
-1. **Establish context.** Identify object/version, user outcomes, test basis and oracle, scope, environment/data, and permitted actions. Inspect discoverable facts first. Ask only for missing facts that change expected behavior, scope, or execution safety; continue independent work. Use [scope and risk](references/scope-and-risk.md) for broad or ambiguous assignments.
-2. **Select coverage.** Trace affected behavior and dependencies. Rank plausible failure modes, choose levels and quality characteristics, then read relevant routes below. For “test everything,” account for relevant surfaces and explicit exclusions; do not execute every catalog entry indiscriminately. A tiny change can need only a few checks.
-3. **Design discriminating tests.** Turn each important risk or rule into a condition, data, action, and observable expected outcome. Apply [test design](references/test-design.md) when deriving cases; identify the technique's actual coverage items, not just its name. Do not derive the oracle solely from the implementation under test.
-4. **Prepare and execute.** Read [execution and evidence](references/execution-and-evidence.md) before dynamic testing. Use existing runners and authorized tools. Verify the target, run a useful small check first, then cover selected risks. Capture reproducible failure evidence.
-5. **Investigate and adapt.** Distinguish product defects, incorrect tests, environment failures, and unresolved requirements. Preserve first failures and reruns. New evidence may justify targeted expansion; repeated clean runs without a reason do not.
-6. **Close the loop.** Use [results and decisions](references/results-and-decisions.md). Connect conclusions to tested versions, coverage and evidence; list material gaps. If fixes are authorized, verify the original failure and relevant regression after the fix. Otherwise provide a reproducible defect and next step.
+Use a native runner directly for short output. When repeated long logs obscure diagnosis, [run_check.py](scripts/run_check.py) preserves a separate complete log per attempt and prints the real exit code, elapsed time and a bounded tail:
 
-## Read only needed routes
+```text
+python3 <skill-dir>/scripts/run_check.py --out-dir <artifacts> --timeout 120 -- <native-test-command> <args>
+```
 
-Select by failure mechanism, not a single technology keyword. Combine routes for cross-boundary flows.
+It does not interpret exit zero as QA success. Inspect collection counts and relevant failure details in the log. It requires Python 3.9+ only if used; no language or framework is required by the skill.
 
-| Trigger or object | Reference | Decision |
-| --- | --- | --- |
-| New feature, unknown scope, strategy, UAT, process improvement | [Scope and risk](references/scope-and-risk.md) | What matters and how much evidence is justified |
-| Inputs, decisions, states, combinations, branches, exploration | [Test design](references/test-design.md) | Which technique exposes the likely defect |
-| Run tests, prepare data/environment, investigate failures | [Execution and evidence](references/execution-and-evidence.md) | What can run and what the result proves |
-| Unit/integration/E2E, CI, flaky tests, mocks | [Automation](references/automation.md) | Test placement and trustworthy assertions |
-| APIs, auth, queues, concurrency, transactions | [Services and distributed systems](references/services-and-distributed.md) | Contracts and effects across identity, failure and time |
-| Web, mobile, desktop, CLI, accessibility, usability, localization | [Interfaces and clients](references/interfaces-and-clients.md) | User journeys across interaction environments |
-| Databases, migrations, ETL, analytics, exports | [Data and migrations](references/data-and-migrations.md) | Integrity, semantics, reconciliation and recovery |
-| Load, recovery, compatibility, security/privacy | [Quality attributes](references/quality-attributes.md) | Measurable targets and adequate environments |
-| ML, LLM, RAG, agents, AI-generated tests | [AI testing](references/ai-testing.md) | Probabilistic evaluation and validation of generated tests |
-| Embedded, real-time, hardware, finance, regulated systems, games | [Domain adaptation](references/domain-adaptation.md) | Additional domain or specialist evidence |
-| Defects, progress, reporting, release recommendation | [Results and decisions](references/results-and-decisions.md) | Supported conclusions and remaining gaps |
-| Terminology, source versions, skill maintenance | [Source map](references/sources.md) | Official anchors versus independent extensions |
+## Reference index
 
-## Proportionality and coverage
+Read the matching section when needed; return to execution once the question is resolved.
 
-- Distinguish **level** (component, component integration, system, system integration, acceptance), **quality characteristic** (e.g. correctness or performance), **technique** (e.g. boundaries), and **purpose** (e.g. smoke, confirmation, regression). One test can have all four.
-- Use static reviews to expose ambiguity and design defects early. QA also concerns prevention and process improvement; passing dynamic tests alone is not a complete QA process.
-- Target meaningful behavior and risk. Do not impose a universal test count, coverage percentage, pyramid ratio, performance threshold, client matrix, or release gate.
-- A green build, mock, screenshot, successful HTTP response, scan, or high code coverage has a specific evidential limit. Report coverage and omissions.
-- Never mark planned, skipped, blocked, or unobserved tests as passed. Unknown expected behavior is an oracle gap; do not invent policy to manufacture a result.
-- Do not weaken assertions, refresh snapshots, disable tests, or add retries merely to make failures disappear. Validate intended behavior first.
-- Prefer synthetic or approved sanitized data. Limit cleanup to owned test resources and keep unnecessary sensitive data out of shared evidence.
+- Unclear scope or priorities: [scope and risk](references/scope-and-risk.md).
+- A technique or coverage model needs precision: [test design](references/test-design.md).
+- Setup, evidence or rerun handling is uncertain: [execution](references/execution-and-evidence.md); test placement or flaky automation: [automation](references/automation.md).
+- Identity, protocol, cache, jobs or transactions: [services](references/services-and-distributed.md); stored data and migrations: [data](references/data-and-migrations.md).
+- Browser, mobile, desktop, CLI or accessibility: [interfaces](references/interfaces-and-clients.md).
+- Load, recovery, security-related QA or compatibility targets: [quality attributes](references/quality-attributes.md).
+- Probabilistic/AI behavior: [AI testing](references/ai-testing.md); specialist constraints: [domain adaptation](references/domain-adaptation.md).
+- Conflicting release evidence or reporting semantics: [results](references/results-and-decisions.md).
+- ISTQB terminology and authoritative anchors: [sources](references/sources.md). This is independent guidance, not ISTQB accreditation or a guarantee of exhaustive QA.
 
-## Deliverables and invocation
-
-Use existing project formats. Respond inline for small work. For substantial work, adapt only needed templates: [plan](assets/test-plan.md), [cases](assets/test-cases.md), [defect](assets/defect-report.md), [report](assets/test-report.md). These are aids, not mandatory paperwork. Store evidence in the project's artifact location, not the installed skill.
-
-- “Use $lazyest-qa to test this change and its affected flows with the existing test tools.”
-- “Use $lazyest-qa to derive boundary and decision-table cases from this specification. Plan only.”
-- “Use $lazyest-qa to verify this fix and identify regression gaps.”
-- “Use $lazyest-qa to assess release readiness from these reports; do not deploy.”
-- “Use $lazyest-qa to evaluate this RAG assistant with the supplied dataset and budget.”
+Optional artifacts: [plan](assets/test-plan.md), [cases](assets/test-cases.md), [defect](assets/defect-report.md), [report](assets/test-report.md). Use them only when the deliverable needs that structure.

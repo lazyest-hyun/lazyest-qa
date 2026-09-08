@@ -1,0 +1,10 @@
+task,case_id,arm,model,reasoning_effort,elapsed_seconds,input_tokens,cached_input_tokens,uncached_input_tokens,output_tokens,reasoning_output_tokens,input_plus_output_tokens,command_executions,frozen_skill_body_observed
+task-a,tornado-4,no-skill,gpt-5.6-luna,medium,147.051,483175,440576,42599,6153,1943,489328,12,
+task-a,tornado-4,short-prompt,gpt-5.6-luna,medium,139.218,549424,498944,50480,6337,1376,555761,11,
+task-a,tornado-4,revised-skill,gpt-5.6-luna,medium,213.355,814152,756736,57416,9688,3448,823840,13,True
+task-b,tornado-6,short-prompt,gpt-5.6-luna,medium,98.446,282882,251392,31490,4561,1201,287443,7,
+task-b,tornado-6,revised-skill,gpt-5.6-luna,medium,122.347,343534,307456,36078,5603,2123,349137,7,True
+task-b,tornado-6,no-skill,gpt-5.6-luna,medium,158.848,645752,602112,43640,6468,1619,652220,15,
+task-c,tornado-13,revised-skill,gpt-5.6-luna,medium,141.97,511178,462080,49098,6331,1649,517509,11,True
+task-c,tornado-13,no-skill,gpt-5.6-luna,medium,159.303,602789,549632,53157,7236,2522,610025,10,
+task-c,tornado-13,short-prompt,gpt-5.6-luna,medium,160.461,592879,541952,50927,7549,2569,600428,9,

@@ -1,0 +1,5 @@
+# Event loop lifecycle
+
+This historical Tornado checkout will be embedded in an application that repeatedly creates and tears down asyncio and Tornado event loops. Review and test lifecycle correctness, cleanup, integration between the two interfaces, and isolation between successive instances. Long-lived hosts and test runners should be able to repeat supported setup/use/teardown without retaining closed resources or interfering with later loops. Use the documentation and existing tests as the test basis. Write and execute focused regression tests, identify reproducible defects, and report release implications with evidence. Do not alter production source.
+
+Environment: use the Python executable verified by the evaluator (validated with CPython 3.9.6). The source checkout is under `input/`; run commands there so this source is imported. The project uses standard-library unittest and needs no package installation for this task. An existing test module is `tornado.test.asyncio_test`. Write new tests and reports only under `result/`. Do not search online for the defect, read other cases, or inspect evaluator files.

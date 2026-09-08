@@ -16,7 +16,8 @@ For detailed cases:
 - Action: [precise steps or command]
 - Expected: [observable result and required/forbidden effects]
 - Cleanup: [owned resources]
-- Actual/status: [record only after execution]
+- Actual: [record observed behavior after execution; otherwise leave empty]
+- Status: [NOT RUN initially; update to the observed execution status]
 - Run context/evidence: [candidate, environment, timestamp and artifact]
 
 ## Exploratory charter, if needed

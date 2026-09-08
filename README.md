@@ -77,7 +77,9 @@ The skill follows the user's language and the project's conventions. It has no r
 
 ## Design and limits
 
-One entrypoint loads only the relevant parts of 12 references. Four optional templates support plans, cases, defects and reports. Small tasks can use ordinary tests and native runner output.
+The entrypoint starts with the actual product and existing tests. Its core can be used directly; consult a section of the 12 references only when it resolves a specific unanswered question. Four optional templates support plans, cases, defects and reports.
+
+For short output, use the native test runner directly. The optional Python 3.9+ `scripts/run_check.py` inside the skill preserves a unique complete log per command and prints a bounded tail with actual exit code and elapsed time. It does not interpret exit zero as a passing QA result. Timeout cleanup is tested on macOS/POSIX; Windows process-tree cleanup is best effort and has not been verified on Windows.
 
 Results distinguish PASS, FAIL, BLOCKED, NOT RUN, INCONCLUSIVE, SKIPPED and NOT APPLICABLE. Oracle certainty is separate from execution status. A passing build, screenshot or mock has a limited evidential scope.
 
@@ -114,10 +116,16 @@ plugins/lazyest-qa/
 
 ## Validation and contributing
 
-See [validation notes](docs/validation.md) for what was checked and its limits. Validate the package with Python 3.9 or later:
+See [validation notes](docs/validation.md) for what was checked and its limits.
+
+The optional [public QA environment](benchmarks/public-qa/README.md) rebuilds three real historical Tornado defects from pinned upstream revisions. It keeps participant source separate from evaluator controls and verifies that the same regression tests fail before each fix and pass afterward. It is a small adapted BugsInPy subset, not a complete benchmark or a dependency of the skill.
+
+Package maintainers use Python 3.9 or later and the development-only YAML parser:
 
 ```sh
+python3 -m pip install -r requirements-dev.txt
 python3 scripts/validate.py
+python3 -m unittest discover -s tests -v
 ```
 
 With Claude Code installed:

@@ -1,0 +1,5 @@
+# HTTP client interoperability
+
+This historical Tornado checkout is being evaluated for clients talking to heterogeneous HTTP origins, including legacy HTTP/1.0 endpoints. Test protocol interoperability across response/body framing, persistent versus closing connections, status/header variations, and sequential requests. Valid responses must be delivered correctly and connection lifecycle must follow the protocol rather than produce internal exceptions. Use the documentation and existing tests as the test basis. Write and execute focused regression tests, identify reproducible defects, and report release implications with evidence. Do not alter production source.
+
+Environment: use the Python executable verified by the evaluator (validated with CPython 3.9.6). The source checkout is under `input/`; run commands there so this source is imported. The project uses standard-library unittest and needs no package installation for this task. An existing test module is `tornado.test.httpclient_test`. Write new tests and reports only under `result/`. Do not search online for the defect, read other cases, or inspect evaluator files.

@@ -1,6 +1,6 @@
 # Execute and preserve evidence
 
-Read before dynamic testing. Use actual host capabilities; do not invent tools, visible UI, credentials or network access.
+Consult the relevant section when test setup, evidence or rerun handling needs clarification. Use actual host capabilities; do not invent tools, visible UI, credentials or network access.
 
 ## Preflight
 

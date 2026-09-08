@@ -1,0 +1,5 @@
+# Static content delivery
+
+This historical Tornado checkout is being evaluated for a file-delivery service behind a reverse proxy. Test the static-file HTTP contract across GET and HEAD, conditional requests, byte-range requests, and boundary-size files. The expected behavior is standards-consistent status, headers, and body with no internal server error for valid client requests. Use the documentation and existing tests as the test basis; cover combinations and sequencing where relevant. Write and execute focused regression tests, identify reproducible defects, and report release implications with evidence. Do not alter production source.
+
+Environment: use the Python executable verified by the evaluator (validated with CPython 3.9.6). The source checkout is under `input/`; run commands there so this source is imported. The project uses standard-library unittest and needs no package installation for this task. An existing test module is `tornado.test.web_test`. Write new tests and reports only under `result/`. Do not search online for the defect, read other cases, or inspect evaluator files.

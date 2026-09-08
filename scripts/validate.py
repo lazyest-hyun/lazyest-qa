@@ -7,6 +7,12 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+try:
+    import yaml
+except ImportError:
+    sys.exit("Package validation requires development dependencies: "
+             "python -m pip install -r requirements-dev.txt")
+
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "lazyest-qa"
@@ -24,7 +30,27 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def read_yaml_mapping(text, label):
+    try:
+        value = yaml.safe_load(text)
+    except yaml.YAMLError as exc:
+        errors.append(f"Invalid YAML in {label}: {exc}")
+        return {}
+    if not isinstance(value, dict):
+        errors.append(f"{label} must contain a YAML mapping")
+        return {}
+    return value
+
+
+def required_string(mapping, field, label):
+    value = mapping.get(field)
+    check(isinstance(value, str) and bool(value.strip()),
+          f"{label}.{field} must be a nonempty string")
+    return value if isinstance(value, str) else ""
+
+
 def validate():
+    errors.clear()
     codex = read_json(PLUGIN / ".codex-plugin/plugin.json")
     claude = read_json(PLUGIN / ".claude-plugin/plugin.json")
     for manifest in (codex, claude):
@@ -52,14 +78,33 @@ def validate():
         check((ROOT / source).resolve() == PLUGIN, "Catalog source resolved incorrectly")
 
     entrypoint = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    frontmatter = re.match(r"\A---\n(.*?)\n---\n", entrypoint, re.S)
+    frontmatter = re.match(r"\A---\n(.*?)\n---(?:\n|\Z)", entrypoint, re.S)
     check(frontmatter is not None, "SKILL.md requires YAML frontmatter")
     if frontmatter:
-        check(re.search(rf"(?m)^name: {NAME}$", frontmatter[1]), "Skill name must match its directory")
-        check(re.search(r"(?m)^description: .+", frontmatter[1]), "Skill description is required")
-    check(len(list(SKILL.glob("references/*.md"))) == 12, "Expected 12 reference routes")
-    check(len(list(SKILL.glob("assets/*.md"))) == 4, "Expected four optional templates")
-    check((SKILL / "agents/openai.yaml").is_file(), "Missing Codex skill UI metadata")
+        metadata = read_yaml_mapping(frontmatter[1], "SKILL.md frontmatter")
+        name = required_string(metadata, "name", "SKILL.md")
+        check(name == NAME, "Skill name must match its directory")
+        required_string(metadata, "description", "SKILL.md")
+
+    ui = read_yaml_mapping((SKILL / "agents/openai.yaml").read_text(encoding="utf-8"),
+                           "agents/openai.yaml")
+    interface = ui.get("interface")
+    check(isinstance(interface, dict), "agents/openai.yaml.interface must be a mapping")
+    if isinstance(interface, dict):
+        for field in ("display_name", "short_description", "default_prompt"):
+            required_string(interface, field, "agents/openai.yaml.interface")
+        description = interface.get("short_description")
+        if isinstance(description, str):
+            check(25 <= len(description) <= 64, "UI short_description must be 25-64 characters")
+        prompt = interface.get("default_prompt")
+        if isinstance(prompt, str):
+            check(f"${NAME}" in prompt, "UI default_prompt must mention the skill invocation")
+    if "policy" in ui:
+        policy = ui["policy"]
+        check(isinstance(policy, dict), "agents/openai.yaml.policy must be a mapping")
+        if isinstance(policy, dict) and "allow_implicit_invocation" in policy:
+            check(isinstance(policy["allow_implicit_invocation"], bool),
+                  "UI policy.allow_implicit_invocation must be a boolean")
 
     documents = [ROOT / "README.md", ROOT / "README.ko.md"]
     documents += list((ROOT / "docs").rglob("*.md")) + list(SKILL.rglob("*.md"))
@@ -84,4 +129,4 @@ if __name__ == "__main__":
     if errors:
         print("Package validation failed:\n" + "\n".join(f"- {error}" for error in errors))
         sys.exit(1)
-    print("Package validation passed: manifests, catalogs, shared skill, and local links.")
+    print("Package validation passed: manifests, catalogs, skill/UI YAML, and local links.")
